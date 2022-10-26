@@ -1,0 +1,17 @@
+const express = require("express");
+const authController = require("../controllers/authController");
+const userController = require("../controllers/userController");
+const uploadImgController = require("../controllers/uploadImgController");
+const router = express.Router();
+const { uploadProfileImage } = require("../middlewares/multer");
+router.post("/register", authController.registerUser);
+router.post("/login", authController.loginUser);
+router.get("/logout", authController.logoutUser);
+router.get("/", userController.getAllUsers);
+router.get("/:id", userController.getUser);
+router.put("/:id", userController.updateUser);
+router.delete("/:id", userController.deleteUser);
+router.patch("/follow/:id", userController.follow);
+router.patch("/unfollow/:id", userController.unFollow);
+router.post("/upload", uploadProfileImage, uploadImgController.uploadProfile);
+module.exports = router;
